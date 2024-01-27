@@ -69,7 +69,6 @@ app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 
 app.use(cors());
-app.options('*', cors());
 
 app.listen(process.env.PORT||8800, () => {
   console.log("Backend server is running!");
