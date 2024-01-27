@@ -16,7 +16,7 @@ const cors = require('cors');
 const path = require("path");
 dotenv.config();
 mongoose.connect(
-  process.env.MONGO_URL,
+  "mongodb://hazgame96:7Yt5Oaf02tsXN8gx@ac-zwyjpdr-shard-00-00.1oznldw.mongodb.net:27017,ac-zwyjpdr-shard-00-01.1oznldw.mongodb.net:27017,ac-zwyjpdr-shard-00-02.1oznldw.mongodb.net:27017/?ssl=true&replicaSet=atlas-z62pow-shard-0&authSource=admin&retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => {
     console.log("Connected to MongoDB");
