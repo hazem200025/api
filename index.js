@@ -67,14 +67,11 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
-// CORS middleware
+// Middleware to handle CORS
 app.use((req, res, next) => {
-  // Allow any origin during development
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  // Other CORS headers
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Replace with your frontend URL
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  // Continue to the next middleware
   next();
 });
 app.use(cors({ origin: '*' }));
