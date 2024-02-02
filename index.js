@@ -67,6 +67,12 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Adjust the origin based on your needs
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 app.use(cors({ origin: '*' }));
 app.listen(process.env.PORT||8800, () => {
   console.log("Backend server is running!");
