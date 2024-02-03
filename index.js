@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const multer = require("multer");
-const cors = require('cors');
+const cors = require('cors');  // Add this line
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
@@ -23,20 +23,11 @@ mongoose.connect(
   }
 );
 
-// Middleware to handle CORS
-app.use(cors({
-  origin: 'http://localhost:3000', // Replace with your frontend URL
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true, // If your requests include credentials such as cookies
-  optionsSuccessStatus: 204, // Handle preflight requests
-  allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization',
-  maxAge: 86400, // 1 day
-}));
-
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
+app.use(cors());  // Enable CORS for all routes
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
