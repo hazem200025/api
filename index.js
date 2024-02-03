@@ -70,10 +70,19 @@ app.use("/api/messages", messageRoute);
 // Middleware to handle CORS
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Replace with your frontend URL
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  next();
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Credentials', true); // If your requests include credentials such as cookies
+  res.header('Cache-Control', 'no-store'); // To disable caching
+
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    res.status(204).send();
+  } else {
+    next();
+  }
 });
+
 app.use(cors({ origin: '*' }));
 app.listen(process.env.PORT||8800, () => {
   console.log("Backend server is running!");
