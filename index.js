@@ -23,6 +23,16 @@ mongoose.connect(
   }
 );
 
+// Middleware to handle CORS
+app.use(cors({
+  origin: 'http://localhost:3000', // Replace with your frontend URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // If your requests include credentials such as cookies
+  optionsSuccessStatus: 204, // Handle preflight requests
+  allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization',
+  maxAge: 86400, // 1 day
+}));
+
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use(express.json());
 app.use(helmet());
@@ -52,16 +62,6 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
-
-// Middleware to handle CORS
-app.use(cors({
-  origin: 'http://localhost:3000', // Replace with your frontend URL
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true, // If your requests include credentials such as cookies
-  optionsSuccessStatus: 204, // Handle preflight requests
-  allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization',
-  maxAge: 86400, // 1 day
-}));
 
 app.listen(process.env.PORT || 8800, () => {
   console.log("Backend server is running!");
